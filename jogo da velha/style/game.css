@@ -1,0 +1,117 @@
+/* Reset de Estilos: Aplica uma normalização dos estilos */
+* {
+    box-sizing: border-box;  /* Faz com que as bordas e o padding sejam incluídos no cálculo do tamanho dos elementos */
+    margin: 0;               /* Remove as margens padrão */
+    padding: 0;              /* Remove o padding padrão */
+}
+
+/* Estilo do corpo da página */
+body {
+    height: 100vh;           /* Define a altura da página como 100% da altura da janela */
+    width: 100vw;            /* Define a largura da página como 100% da largura da janela */
+    background: linear-gradient(90deg, rgb(255, 34, 34), rgb(172, 169, 4), rgb(255, 138, 5));  /* Define um gradiente de fundo */
+    display: flex;           /* Usa flexbox para centralizar o conteúdo */
+    justify-content: center; /* Alinha o conteúdo horizontalmente no centro */
+    align-items: center;     /* Alinha o conteúdo verticalmente no centro */
+}
+
+/* Estilos para o tabuleiro */
+.board {
+    display: grid;                  /* Define o layout de grid para as células */
+    width: 100%;                     /* O tabuleiro ocupa toda a largura disponível */
+    height: 100%;                    /* O tabuleiro ocupa toda a altura disponível */
+    justify-content: center;         /* Alinha as células horizontalmente no centro */
+    align-content: center;           /* Alinha as células verticalmente no centro */
+    justify-items: center;           /* Alinha os itens (células) dentro do tabuleiro */
+    align-items: center;             /* Alinha os itens verticalmente */
+    grid-template-columns: repeat(3, auto);  /* Cria 3 colunas para o tabuleiro */
+    
+}
+
+/* Estilos para as células */
+.cell {
+    width: 100px;                    /* Define a largura da célula */
+    height: 100px;                   /* Define a altura da célula */
+    display: flex;                   /* Usa flexbox para centralizar o conteúdo dentro da célula */
+    justify-content: center;         /* Alinha o conteúdo horizontalmente */
+    align-items: center;             /* Alinha o conteúdo verticalmente */
+    position: relative;              /* Necessário para posicionar o "X" e "O" dentro da célula */
+    border: 2px solid white;         /* Borda branca para as células */
+   /* background-color: #fdbb2d;  */     /* Cor de fundo amarelo para as células */
+}
+
+/* Estilos para o "X" */
+.cell.x::before,
+.cell.x::after {
+    content: "";                      /* Cria um conteúdo vazio para as pseudo-classes */
+    position: absolute;               /* Permite o posicionamento absoluto do "X" dentro da célula */
+    background: white;                /* Cor de fundo branca para as linhas do "X" */
+    border-radius: 2px;               /* Faz as linhas do "X" ficarem com bordas arredondadas */
+}
+
+/* Linha do "X" (antes) */
+.cell.x::before {
+    width: calc(100px * 0.15);         /* Define a largura da linha do "X" (15% da largura da célula) */
+    height: calc(100px * 0.9);         /* Define a altura da linha do "X" (90% da altura da célula) */
+    transform: rotate(45deg);          /* Rotaciona a linha para formar o "X" */
+}
+
+/* Linha do "X" (depois) */
+.cell.x::after {
+    width: calc(100px * 0.15);         /* Define a largura da linha do "X" (15% da largura da célula) */
+    height: calc(100px * 0.9);         /* Define a altura da linha do "X" (90% da altura da célula) */
+    transform: rotate(-45deg);         /* Rotaciona a linha para formar o "X" na direção oposta */
+}
+
+/* Estilos para o "O" (Círculo) */
+.cell.circle::before,
+.cell.circle::after {
+    content: "";                      /* Cria um conteúdo vazio para as pseudo-classes */
+    width: calc(100px * 0.9);          /* Define a largura do "O" (90% da largura da célula) */
+    height: calc(100px * 0.9);         /* Define a altura do "O" (90% da altura da célula) */
+    background: white;                /* Cor de fundo branca para o "O" */
+    position: absolute;               /* Permite o posicionamento absoluto do "O" dentro da célula */
+    border-radius: 50%;               /* Faz o "O" ser redondo (circular) */
+}
+
+/* Efeito de hover nas células vazias (para "X" ou "O") */
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+    background: rgba(255, 255, 255, 0.3);  /* Altera a cor de fundo das células vazias para um efeito visual ao passar o mouse */
+}
+
+/* Estilo da mensagem de vitória */
+.winning-message {
+    display: none;                      /* Inicialmente a mensagem está oculta */
+    width: calc(100px * 0.9);            /* Define a largura da mensagem */
+    text-align: center;                 /* Centraliza o texto da mensagem */
+    color: white;                       /* Define a cor do texto como branco */
+    font-size: 1.5rem;                  /* Define o tamanho da fonte */
+}
+
+/* Estilos para as bordas das células (remover algumas bordas específicas) */
+.cell:nth-child(1),
+.cell:nth-child(2),
+.cell:nth-child(3) {
+    border-top: none;                  /* Remove a borda superior das três primeiras células */
+}
+
+.cell:nth-child(1),
+.cell:nth-child(4),
+.cell:nth-child(7) {
+    border-left: none;                 /* Remove a borda esquerda das células da primeira coluna */
+}
+
+.cell:nth-child(7),
+.cell:nth-child(8),
+.cell:nth-child(9) {
+    border-bottom: none;               /* Remove a borda inferior das células da última linha */
+}
+
+.cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9) {
+    border-right: none;                /* Remove a borda direita das células da última coluna */
+}
